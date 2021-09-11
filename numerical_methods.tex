@@ -1,0 +1,1077 @@
+
+    
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    \usepackage[breakable]{tcolorbox}
+    \tcbset{nobeforeafter} % prevents tcolorboxes being placing in paragraphs
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{numerical\_methods}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \newcommand{\prompt}[4]{
+        \llap{{\color{#2}[#3]: #4}}\vspace{-1.25em}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{python-expresivo}{%
+\section{Python expresivo}\label{python-expresivo}}
+
+No se busca que esta sea una introducción a la programación. Tutoriales
+sobre el lenguaje de programación Python se pueden encontrar en Internet
+fácilmente. Lo que se busca hacer en este capítulo es proveer una rápida
+recopilación de las características de Python.
+
+\hypertarget{por-quuxe9-python}{%
+\subsection{¿Por qué Python?}\label{por-quuxe9-python}}
+
+En esta guía se usa Python 3, con la idea de facilitar la aplicación de
+algunos de los temas que se discutirán. Con su sintaxis razonablemente
+simple se pueden escribir programas expresivamente, aunque a veces se
+sacrifique eficiencia. Las implementaciones tienen un objetivo
+pedagógico. Cuando se requiera más poder computacional, puede que se
+necesite cambiar a un lenguaje compilado. La mayoría del trabajo en
+supercomputadoras se realiza usando lenguajes como Fortran o C++. Sin
+embargo, construir un programa prototipo en Python puede ser invaluable
+para adquirir una mayor comprensión.
+
+\hypertarget{calidad-del-cuxf3digo}{%
+\subsection{Calidad del código}\label{calidad-del-cuxf3digo}}
+
+Cuando se desarrollan programas grandes, seguir una guía sobre el
+formato que debe tener el código puede ser importante, pero la mayoría
+de los programas mostrados aquí serán cortos por lo que no será un tema
+importante. A veces, preguntas sobre cómo escribir y revisar programas
+son más importantes que el formato del código. Algunos consejos
+generales son los siguientes:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{La legibilidad del código es importante} Asegúrese de que sus
+  programas estén dirigidos a humanos, no computadoras. Esto significa
+  evitar usar trucos ``astutos''. Por lo que debe usar buenos nombres de
+  variables y escribir comentarios que agreguen valor (en lugar de
+  repetir el código). El mayor beneficiado será usted, cuando regrese a
+  sus programas meses después.
+\item
+  \textbf{Sea cuidadoso, no rápido, cuando escriba código} Generalmente
+  es más difícil debuggear código que escribirlo. En lugar de pasar dos
+  minutos escribiendo un programa que no sirve y requiera dos horas para
+  arreglar, intente pasar 10 minutos diseñando el código, siendo
+  cuidadoso de convertir sus ideas a líneas de un programa. Tampoco hace
+  daño usar Python de forma interactiva para probar componentes del
+  código una a una o diferentes partes en conjunto.
+\item
+  \textbf{Código sin probar es mal código} Asegúrese que su código
+  funciona correctamente. Si tiene un ejemplo del que ya conoce la
+  respuesta, asegúrese de que su código devuelva esa respuesta. Siga
+  manualmente una variedad de casos (mentalmente o en papel). Esto y
+  usando \emph{print statements} puede ayudar mucho para asegurar que
+  todo funcione como se debe.
+\item
+  \textbf{Escriba funciones que hagan una cosa bien} En lugar de
+  escribir muchas operaciones no relacionadas en secuencia, debe
+  estructurar su código para que haga uso de funciones bien nombradas (y
+  bien pensadas) que hagan una cosa bien.
+\item
+  \textbf{Use librerías confiables} En la mayoría de esta guía se
+  ``reinventará la rueda'', con el fin de entender cómo funcionan las
+  cosas. Tiempo después en su trabajo, usted no siempre debe usar sus
+  propias implementaciones de algoritmos estándar.
+\end{itemize}
+
+\hypertarget{resumen-de-caracteruxedsticas-de-python}{%
+\section{Resumen de características de
+Python}\label{resumen-de-caracteruxedsticas-de-python}}
+
+\hypertarget{lo-buxe1sico}{%
+\subsection{Lo básico}\label{lo-buxe1sico}}
+
+Python se puede usar de forma interactiva: cuando vea el comando
+\texttt{\textgreater{}\textgreater{}\textgreater{}}, también conocido
+como \emph{chevron}. Pero también se puede usar como otros lenguajes,
+donde se almacena el código en un archivo.\\
+Como otros lenguajes, en Python se usan variables, que pueden ser
+números enteros, complejos, etc. A diferencia de otros lenguajes, Python
+es dinámico en cuanto a los tipos de variable. Por ejemplo,
+\texttt{x\ =\ 0.5} crea una variable de punto flotante. Números como
+\texttt{0.5} o strings como \texttt{"Hello"} se conocen como
+\emph{literales}. Si se desea imprimir en pantalla una variable, se usa
+la función \texttt{print(x)} que viene predefinida. Funciones
+adicionales están disponibles a través de la librería estándar, por
+ejemplo usted puede hacer un \texttt{import} de la librería
+\texttt{math} para hacer uso de la función \texttt{sqrt}.\\
+Se pueden realizar operaciones aritméticas con las variables.
+\texttt{x**y} eleva la variable \texttt{x} a la potencia \texttt{y} ó
+\texttt{x//y} hace una \emph{floor division} (hace la división y
+redondea el resultado hacia abajo).\\
+Python también utiliza asignación aumentada, es decir, operaciones como
+\texttt{x\ +=\ 1} o incluso asignaciones múltiples como
+\texttt{x,\ y\ =\ 0.5,\ "Hello"}.\\
+Los comentarios son una característica importante de los lenguajes de
+programación: son texto ignorado por la computadora pero muy útil para
+los humanos que leen el código. Ese humano puede ser usted en unos
+meses, cuando se haya olvidado el propósito o los detalles del código
+que esté inspeccionando. Python permite escribir comentarios tanto de
+una línea como de múltiples líneas, usando \texttt{\#} ó
+\emph{docstrings} a través de tres comillas \texttt{"""}.
+
+\hypertarget{control-de-flujo}{%
+\subsection{Control de flujo}\label{control-de-flujo}}
+
+Control de flujo se refiere a construcciones programables donde no todas
+las líneas del código son ejecutadas en orden. Un ejemplo es la
+declaración con \texttt{if}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{x} \PY{o}{=} \PY{l+m+mf}{0.5}
+\PY{k}{if} \PY{n}{x} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x no es cero}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x no es cero
+\end{Verbatim}
+
+    La sangría o \emph{tabulación} es importante en Python: la línea después
+del \texttt{if} está tabulada, dando a entender que pertenece al
+escenario correspondiente. Similarmente, los dos puntos, \texttt{:}, al
+final de la línea que contiene al \texttt{if} es sintácticamente
+importante. Si se quiere tomar en cuenta otras posibilidades, se puede
+usar otro bloque tabulado empezando con un \texttt{else:} o con
+\texttt{elif\ x==0:}.\\
+Otra construcción programable es ciclo \texttt{for}, que se usa cuando
+se desea repetir una cierta acción un número fijo de veces. Por ejemplo,
+escribiendo \texttt{for\ i\ in\ range(3):} se repite lo que sea que siga
+tres veces.
+
+\hypertarget{estructuras-de-datos}{%
+\subsection{Estructuras de datos}\label{estructuras-de-datos}}
+
+Python utiliza entidades contenedoras, llamadas estructuras de datos.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Listas} Una lista es un contenedor de elementos. Puede
+  aumentar cuando se necesite y los elementos pueden ser de diferentes
+  tipos. Para crear una lista se usan corchetes, y los elementos se
+  pueden separar por comas, por ejemplo
+  \texttt{z\ =\ {[}3,\ 1+2j,\ -2.0{]}}
+\item
+  \textbf{Tuplas} Las tuplas se pueden definir como listas inmutables.
+  Son secuencias que no cambian ni crecen. Son definidas usando
+  paréntesis en lugar de corchetes: \texttt{xs\ =\ (1,2,3)}, pero se
+  pueden omitir los paréntesis.
+\item
+  \textbf{Strings} Strings pueden verse como secuencias. Si
+  \texttt{name\ =\ "Mary"} entonces \texttt{name{[}-1} es la letra `y'.
+  Como las tuplas, las strings son inmutables, y se pueden concatenar
+  dos strings usando un \texttt{+}.
+\item
+  \textbf{Diccionarios} Python también soporta diccionarios, que son
+  llamados listas asociativas en computación. Su información se puede
+  acceder usando strings o \emph{floats} (números de punto flotante)
+  como \emph{llaves}. En otras palabras, diccionarios contienen pares de
+  llave y valor. La sintaxis para crear uno utiliza braquets, con pares
+  llave-valor separados por dos puntos. Por ejemplo,
+  \texttt{htow\ =\ \{1.41:\ 31.3,\ 1.45:\ 36.7,\ 1.48:\ 42.4\}} es un
+  diccionario que relaciona alturas con pesos. Para acceder a un valor,
+  se utilizan corchetes con la llave correspondiente:
+  \texttt{htow{[}1.45{]}}.
+\end{itemize}
+
+\hypertarget{funciones-definidas-por-el-usuario}{%
+\subsection{Funciones definidas por el
+usuario}\label{funciones-definidas-por-el-usuario}}
+
+Si en un programa se ejecutan muchas operaciones en secuencia, dentro de
+varios ciclos, su lógica se puede volver confusa. Por lo tanto, se
+pueden agrupar operaciones lógicamente relacionadas y crear lo que se
+llama funciones definidas por el usuario. Estas se refieren a líneas de
+código que no necesariamente se ejecutan en el orden en el que aparecen
+en el código.\\
+Para introducir una función, se utiliza la palabra \texttt{def}, junto
+con un nombre y dos puntos al final de la línea, así como tabulaciones
+dentro del bloque de código que sigue. Por ejemplo, esta es una función
+que suma desde 1 hasta algún entero:
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{sumOfInts}\PY{p}{(}\PY{n}{nmax}\PY{p}{)}\PY{p}{:}
+    \PY{n}{val} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{nmax} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+    \PY{k}{return} \PY{n}{val}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Esta función recibe un solo parámetro y devuelve un sólo valor. Pero
+podría recibir varios argumentos, o ninguno. Y similarmente, pudo haber
+impreso el resultado en pantalla, en lugar de devolverlo.
+
+\hypertarget{errores}{%
+\section{Errores}\label{errores}}
+
+En este texto se usa la palabra \emph{exactitud} para describir el
+acierto de un valor con su (posiblemente desconocido) valor verdadero.
+Por otro lado, la palabra \emph{precisión} se usa para denotar cuántos
+dígitos se pueden usar en una operación matemática, aunque sean
+correctos o no. Un resultado inexacto se obtiene cuando hay un error.
+Esto puede pasar por una variedad de razones, de las que solo una es
+precisión limitada. Excluyendo el ``error humano'' e incertidumbre de
+las mediciones en los datos entrantes, hay generalmente dos tipos de
+errores con los que se trata en cómputo numérico: error de aproximación
+y error de redondeo. En detalle:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Error de aproximación} Aquí un ejemplo. Usted está tratando de
+  aproximar la exponencial, \(e^x\), usando su serie de Taylor:
+\end{itemize}
+
+\begin{equation}
+y = \sum_{n=0}^{n_{max}} \frac{x^n}{n!}  \label{2.4} \tag{1}
+\end{equation}
+
+Obviamente, estamos limitando la suma a los términos hasta \(n_{max}\)
+(es decir, estamos incluyendo los terminos marcados como 0, 1, \ldots,
+\(n_{max}\) y no usamos los términos desde \(n_{max}\) hasta
+\(\infty\)). Como resultado, es un tanto obvio que el valor de \(y\)
+para un \(x\) dado puede depender de \(n_{max}\). En principio, al costo
+de correr los cálculos por más tiempo, uno puede obtener una mejor
+respuesta.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Errores de redondeo} Este tipo de errores aparecen cada vez
+  que un cálculo es realizado sin usar números de punto flotante: como
+  estos no tienen una infinita precisión, algo de información se pierde.
+  Por ejemplo: usando números reales, es fácil ver que
+  \((\sqrt{2})^2 - 2 = 0\). Sin embargo, cuando se realiza la misma
+  operación en Python obtenemos una respuesta diferente de cero:
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{math} \PY{k+kn}{import} \PY{n}{sqrt}
+\PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, boxrule=.5pt, size=fbox, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{3}{\hspace{3.5pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+4.440892098500626e-16
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Esto es porque \(\sqrt{2}\) no puede ser evaluado con una cantidad
+infinita de dígitos en una computadora. Por lo tanto, el (un tanto
+inexacto) resultado de \(\sqrt{2}\) es usado para realizar un segundo
+cálculo: el cuadrado. Finalmente, la resta es aún otra operación
+matemática que puede llevar a un error de redondeo. A menudo, los
+errores de redondeo no desaparecen aunque se haga el cálculo por más
+tiempo.\(\sqrt{2}\)
+
+\hypertarget{error-absoluto-y-relativo}{%
+\subsection{Error absoluto y relativo}\label{error-absoluto-y-relativo}}
+
+Asuma que estamos estudiando una cantidad cuyo valor exacto es \(x\). Si
+\(\tilde{x}\) es un valor aproximado para este valor, entonces se define
+el \emph{error absoluto} como sigue:
+
+\[
+\begin{equation} 
+\Delta x = \tilde{x} - x  \label{2.5}\tag{2}
+\end{equation}
+\]
+
+Aquí no especificamos en este momento el origen de este error absoluto:
+puede ser por incertesas en los datos de entrada, una inexactitud
+introducida por un cálculo imperfecto como el mostrado anteriormente, o
+el resultado de un error de redondeo (posiblemente acumulado sobre
+varios cálculos). Por ejemplo:
+
+\[
+\begin{equation}
+x_0 = 1.000, \quad \quad \tilde{x_0} = 0.999 \label{2.6}\tag{3}
+\end{equation}
+\]
+
+Corresponde a un error absoluto de \(\Delta x_0 = -10^{-3}\) . Esto
+también nos permite ver que el error absoluto, por definición, puede ser
+positivo o negativo. Si se necesita que sea positivo (digamos, para
+obtener su logaritmo), simplemente se toma su valor absoluto.\\
+Usualmente estamos interesados en definir un \emph{límite de error} de
+la forma:
+
+\[
+\begin{equation}
+|\Delta x| \leq \epsilon \label{2.7}\tag{4}
+\end{equation}
+\]
+
+o equivalentemente:
+
+\[
+\begin{equation}
+|\tilde{x} - x| \leq \epsilon \label{2.8}\tag{5}
+\end{equation}
+\]
+
+donde esperamos que \(\epsilon\) sea ``pequeño''. Tener acceso a tal
+límite de error significa que podemos decir algo muy específico sobre el
+(desconocido) valor exacto \(x\):
+
+\[
+\begin{equation}
+\tilde{x} - \epsilon \leq x \leq \tilde{x} + \epsilon \label{2.9}\tag{6}
+\end{equation}
+\]
+
+Esto significa que aunque no sepamos el valor exacto de \(x\), sabemos
+que puede ser a lo más \(\tilde{x} + \epsilon\). Tenga en mente que si
+usted sabe el concreto error absoluto, como con
+\(\Delta x_0 = -10^{-3}\) en el ejemplo anterior, de la ecuación \_,
+sabemos que
+
+\[
+\begin{equation}
+x = \tilde{x} - \Delta x \label{2.10} \tag{7}
+\end{equation}
+\]
+
+y no hay necesidad de desigualdades. Las desigualdades aparecen cuando
+no se sabe el valor concreto del error absoluto y sólo se conoce el
+límite para la magnitud del error. La notación para el límite de error
+\(|\Delta x| \leq \epsilon\) a veces se reescribe en la forma
+\(x = \tilde{x} \pm \epsilon\) aunque se tiene que tener cuidado: esto
+utiliza nuestra definición de \emph{máximo de error} (es decir, el peor
+caso posible) como se escribió anteriormente, no el \emph{error
+estandar}\\
+Por supuesto, incluso en esta pronta etapa, uno debe pensar en
+exactamente a qué nos referimos por ``pequeño''. En el caso anterior de
+\(\Delta x_0 = -10^{-3}\) probablemente se ajusta a esto. ¿Pero que tal:
+
+\[
+\begin{equation}
+x_1 = 1 \ 000 \ 000 \ 000.0 \quad \quad \quad \tilde{x_1} = 999 \ 999 \ 999.0 \label{2.11}\tag{8}
+\end{equation}
+\]
+
+Que corresponde a un error absoluto de \(\Delta x_1 = -1\)? Obviamente,
+este error absoluto es más grande (en magnitud) que
+\(\Delta x_0 = -10^{-3}\). Por otro lado, no es muy equivocado decir que
+hay algo mal con esta comparación: \(x_1\) es mucho más grande (en
+magnitud) que \(x_0\), por lo que aunque el valor aproximado
+\(\tilde{x_1}\) está equivocado por una unidad, se ``siente'' más cerca
+al valor exacto correspondiente de lo que \(\tilde{x_0}\) estaba.\\
+Esto se resuelve introduciendo una nueva definición. Igual que antes,
+estamos interesados en una cantidad cuyo valor exacto es \(x\) y un
+valor aproximado para él es \(\tilde{x}\). Asumiento \(x \neq 0\),
+podemos definir el \emph{error relativo} como sigue:
+
+\[
+\begin{equation}
+\delta x = \frac{\Delta x}{x} = \frac{\tilde{x} - x}{x} \label{2.12} \tag{9}
+\end{equation}
+\] Obviamente, esto simplemente es el error absoluto \(\Delta x\)
+dividido por el valor exacto \(x\). Al igual que antes, no especificamos
+el origen de este error relativo (incertidumbre en los datos ingresados,
+redondeo, etc.)\\
+Otra forma de expresar este error relativo es:
+
+\[
+\begin{equation}
+\tilde{x} = x(1 + \delta x) \label{2.13}\tag{10}
+\end{equation}
+\]
+
+Usted debe convencerse de que esto sigue directamente de \eqref{2.12}.
+En lo que sigue se usará esta formulación en repetidas ocasiones.\\
+Aplicando esta definición del error relativo a los ejemplos anteriores:
+
+\[
+\delta x_0 = \frac{0.999 - 1.000}{1.000} = -10^{-3}, \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+\delta x_1 = \frac{999 \ 999 \ 999.0 - 1 \ 000 \ 000 \ 000.0}{1 \ 000 \ 000 \ 000.0} = -10^{-9} \label{2.14}\tag{11}
+\]
+
+La definición de error relativo es consistente con nuestra intuición:
+\(\tilde{x}_1\) es, en realidad, un mucho mejor estimado de \(x_1\) que
+\(\tilde{x}_0\) es de \(x_0\). Con frecuencia. el error relativo es un
+porcentaje dado: \(\delta x_0\) es un error relativo de \(-0.1\%\)
+mientras que \(\delta x_1\) es un erro relativo de \(-10^{-7}\%\).\\
+En física los valores de un observable pueden variar por varios órdenes
+de magnitud (de acuerdo a la densidad, temperatura y demás), por lo que
+es bueno usar, cuando sea posible, el concepto de error relativo, que es
+independiente de la escala. Al igual que en el caso del error absoluto,
+también se puede introducir un \emph{límite de error relativo}:
+
+\[
+\begin{equation}
+|\delta x| = \left| \frac{\Delta x}{x} \right| \leq \epsilon \label{2.15}\tag{12}
+\end{equation}
+\]
+
+donde ahora la frase ``\(\epsilon\) es pequeño'' no es ambigua.
+Finalmente, note que la definición de error relativo en \eqref{2.12}
+involucra a \(x\) en el denominador. Si se tiene acceso al valor exacto
+(como en los ejemplos de arriba con \(x_0\) y \(x_1\)), todo está bien.
+Pero si no se conoce este valor es más conveniente usar el valor
+aproximado de \(\tilde{x}\) en el denominador.
+
+\hypertarget{propagaciuxf3n-de-error}{%
+\subsection{Propagación de error}\label{propagaciuxf3n-de-error}}
+
+Hasta ahora, hemos examinado los conceptos de error absoluto y error
+relativo (así como sus límites respectivos). Estos se discuten en
+general, sin brindar detalles sobre las operaciones matemáticas donde se
+utilizan estos números. Ahora procedemos a discutir las operaciones
+elementales (suma, resta, multiplicación, división), que se espera le de
+a usted conocimientos para combinar valores aproximados. Uno de nuestros
+objetivos es ver qué pasa cuando juntamos límites de error de dos
+números \(a\) y \(b\) para producir un límite de error de un tercer
+número, \(x\). En otras palabras, estudiaremos la propagación de error.
+En lo que sigue, es importante tener en mente que se usan \emph{errores
+máximos}, por lo que los resultados son diferentes de los que se pueden
+encontrar en un curso experimental de mediciones común.
+
+\hypertarget{suma-o-resta}{%
+\subsubsection{Suma o Resta}\label{suma-o-resta}}
+
+Tenemos dos números reales, \(a\) y \(b\), y deseamos tomar su
+diferencia:
+
+\[
+\begin{equation}
+x = a - b \label{2.16}\tag{13}
+\end{equation}
+\]
+
+Como es común, no sabemos los valores exactos, sólo sus aproximados
+\(\tilde{a}\) y \(tilde{b}\), por lo que en su lugar formamos la
+diferencia de estos:
+
+\[
+\begin{equation}
+\tilde{x} = \tilde{a} - \tilde{b} \label{2.17}\tag{14}
+\end{equation}
+\]
+
+Si ahora aplicamos la ecuación \eqref{2.10} dos veces:
+
+\[
+\begin{equation}
+\tilde{a} = a + \Delta a, \ \ \ \ \ \ \ \ \ \ \tilde{b} = b + \Delta b \label{2.18}\tag{15}
+\end{equation}
+\]
+
+Agregando las últimas cuatro ecuaciones en la definición de error
+absoluto \eqref{2.5}, tenemos:
+
+\[
+\begin{equation}
+\Delta x = \tilde{x} - x = (a + \Delta a) - (b + \Delta b) - (a - b) = \Delta a - \Delta b \label{2.19}\tag{16}
+\end{equation}
+\]
+
+En la tercera igualdad cancelamos lo que podemos.\\
+Ahora recordemos que estamos interesados en encontrar relaciones entre
+límites de error. Por lo que tomamos el valor absoluto y luego usamos la
+desigualdad triangular para encontrar:
+
+\[
+\begin{equation}
+|\Delta x | \leq |\Delta a| + |\Delta b| \label{2.20}\tag{17}
+\end{equation}
+\]
+
+Una derivación completamente análoga lleva al mismo resultado para el
+caso de la suma de dos números \(a\) y \(b\). Por lo tanto, la
+conclusión principal es que \emph{en la suma y resta sumar los límites
+para los errores absolutos en los dos números nos da como resultado un
+límite para el error absoluto}\\
+Veamos un ejemplo. Asumamos que tenemos:
+
+\[
+\begin{equation}
+|4.56 - a| \leq 0.14, \ \ \ \ \ \ \ \ \ \ |1.23 - b| \leq 0.03 \label{2.21}\tag{18}
+\end{equation}
+\]
+
+(Si está confundido con esta notación, revise las ecuaciones \eqref{2.7}
+y \eqref{2.8}). El hallazgo en \eqref{2.20} implica que la siguiente
+relación se mantiene, cuando \(x = a - b\):
+
+\[
+\begin{equation}
+|3.33 - x| \leq 0.17 \label{2.22}\tag{19}
+\end{equation}
+\]
+
+Es fácil ver que este límite de error, simplemente la suma de los dos
+límites de error con los que empezamos, es mayor que cualquiera de
+ellos. Si no tuvieramos acceso a \eqref{2.20}, podríamos haber llegado
+al mismo resultado por el camino largo: \textbf{(a)} cuando \(a\) tiene
+el valor más grande posible (4.70) y \(b\) tiene el valor más pequeño
+posible (1.20), se tiene el valor más grande posible para \(a - b\), que
+es 3.50, y \textbf{(b)} cuando \(a\) tiene el valor más pequeño posible
+(4.42) y \(b\) tiene el valor más grande posible (1.26), se obtiene el
+valor más pequeño posible para \(a - b\), que es 3.16.\\
+En la forma de el resultado principal \eqref{2.20}, que se aplicó a un
+ejemplo específico, se muestra que simplemente se sumaron los límites de
+error absoluto. Como se mencionó antes, esto es diferente de lo que se
+hace cuando se enfrenta con ``errores estandar'' (como deviación
+estandar de la distribución de muestras): en ese caso, los errores
+absolutos agregan ``cuadratura''.
+
+\hypertarget{cancelaciuxf3n-catastruxf3fica}{%
+\subsubsection{Cancelación
+catastrófica}\label{cancelaciuxf3n-catastruxf3fica}}
+
+Examinemos un caso más interesante: \(a \approx b\) (para el que
+\(x = a - b\) es pequeño). Dividiendo el resultado de \eqref{2.20} con
+\(x\) nos da el error relativo (el límite) en \(x\):
+
+\[
+\begin{equation}
+|\delta x| = \left| \frac{\Delta x}{x} \right| \leq \frac{|\Delta a| + |\Delta b|}{|a - b|} \label{2.23}\tag{20}
+\end{equation}
+\]
+
+Ahora, expresando \(\Delta a\) y \(\Delta b\) en términos del error
+relativo correspondiente: \(\Delta a = a \delta a\) y
+\(\Delta b = b \delta b\). Como \(a \approx b\), se puede factorizar
+\(|a|\):
+
+\[
+\begin{equation}
+|\delta x| \leq (|\delta a| + |\delta b|)\frac{|a|}{|a - b|} \label{2.24}\tag{21}
+\end{equation}
+\]
+
+Es facil ver que si \(a \approx b\) entonces \(|a - b|\) será mucho
+menor que \(|a|\) por lo que, como la fracción será más grande, los
+errores relativos \(\delta a\) y \(\delta b\) aumentaran{[}\^{}1{]}.
+{[}\^{}1{]}: Este problema específico no ocurre en el caso de la suma,
+ya que allí el denominador no tiene que ser pequeño
+
+Hagamos un ejemplo. Supongamos que tenemos:
+
+\[
+\begin{equation}
+|1.25 - a| \leq 0.03, \ \ \ \ \ \ \ \ \ \ |1.20 - b| \leq 0.03 \label{2.25}\tag{22}
+\end{equation}
+\]
+
+es decir, un error relativo (límite)
+\(\delta a \approx 0.03/1.25 = 0.024\) o más o menos \(2.4\%\) (esto es
+un aproximado, porque se dividió con \(\tilde{a}\), no con el,
+desconocido, \(a\)). Similarmente, el otro error relativo (límite) es
+\(\delta b \approx 0.03/1.20\) o más o menos \(2.5\%\). De la ecuación
+\eqref{2.24} vemos que el error relativo para la diferencia obedece:
+
+\[
+\begin{equation}
+|\delta x| \leq (0.024 + 0.025) \frac{1.25}{0.05} = 1.225 \label{2.26}\tag{23}
+\end{equation}
+\]
+
+donde el lado derecho es una aproximación (usando
+\(\tilde{a} y \tilde{x}\)). Esto muestra que dos números con cerca de
+\(2.5\%\) de errores relativos fueron restados y el resultado ¡tiene un
+error relativo de mucho más del cien porciento! A esto a veces se le
+llama \emph{cancelación catastrófica o restada}
+
+\hypertarget{multiplicaciuxf3n-o-divisiuxf3n}{%
+\subsubsection{Multiplicación o
+división}\label{multiplicaciuxf3n-o-divisiuxf3n}}
+
+Tenemos dos números reales \(a\) y \(b\), y deseamos tomar su producto:
+
+\[
+\begin{equation}
+x = ab \label{2.27}\tag{24}
+\end{equation}
+\]
+
+Como es usual, no sabemos sus valores exactos, sólo los valores
+aproximados \(\tilde{a}\) y \(\tilde{b}\)
+
+\hypertarget{propagaciuxf3n-de-error-general-funciones-de-una-variable}{%
+\subsubsection{Propagación de error general: Funciones de una
+variable}\label{propagaciuxf3n-de-error-general-funciones-de-una-variable}}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+fermentum dolor odio, quis auctor lectus dapibus nec. Praesent sagittis
+eu nisi vitae placerat. Sed suscipit, augue ac blandit gravida, sem
+felis pretium velit, quis aliquet urna odio sed nisl. Nam nibh purus,
+dapibus sit amet convallis in, euismod a diam. Donec justo lacus, dictum
+at elit ac, tincidunt facilisis mauris. Fusce non lorem et mi
+ullamcorper pharetra. Orci varius natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla blandit, turpis a
+sagittis efficitur, magna est interdum arcu, at commodo nisl lorem id
+libero. Etiam accumsan nulla vitae luctus consequat.
+
+Donec laoreet vulputate risus eu sagittis. In malesuada a nunc ac
+eleifend. Ut ut aliquam odio. Vestibulum suscipit, enim at pretium
+interdum, ipsum tellus commodo orci, id placerat eros tellus a magna.
+Maecenas nunc nisi, congue mattis est gravida, placerat condimentum
+nibh. Aliquam malesuada blandit ipsum, in imperdiet arcu sagittis ut.
+Fusce ex neque, viverra sit amet pellentesque vel, rutrum vel elit.
+Etiam mi nisl, pulvinar vel lacus eget, fringilla ultricies nisl. Nulla
+velit turpis, viverra nec elementum quis, mollis ut augue. Integer
+vulputate, metus id cursus imperdiet, arcu nibh consequat justo, a porta
+eros massa vel nibh. Vivamus sed nibh sed nunc pellentesque pharetra.
+Etiam nec mi vel felis imperdiet interdum. Curabitur tristique dapibus
+risus, eu tincidunt dui dapibus in. Donec tempor varius elit ut
+vestibulum. Mauris metus libero, sollicitudin id nisi ut, cursus
+tincidunt turpis. Aenean vitae placerat diam.
+
+\hypertarget{propagaciuxf3n-de-error-general-funciones-de-varias-variables}{%
+\subsubsection{Propagación de error general: Funciones de varias
+variables}\label{propagaciuxf3n-de-error-general-funciones-de-varias-variables}}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+fermentum dolor odio, quis auctor lectus dapibus nec. Praesent sagittis
+eu nisi vitae placerat. Sed suscipit, augue ac blandit gravida, sem
+felis pretium velit, quis aliquet urna odio sed nisl. Nam nibh purus,
+dapibus sit amet convallis in, euismod a diam. Donec justo lacus, dictum
+at elit ac, tincidunt facilisis mauris. Fusce non lorem et mi
+ullamcorper pharetra. Orci varius natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla blandit, turpis a
+sagittis efficitur, magna est interdum arcu, at commodo nisl lorem id
+libero. Etiam accumsan nulla vitae luctus consequat.
+
+Donec laoreet vulputate risus eu sagittis. In malesuada a nunc ac
+eleifend. Ut ut aliquam odio. Vestibulum suscipit, enim at pretium
+interdum, ipsum tellus commodo orci, id placerat eros tellus a magna.
+Maecenas nunc nisi, congue mattis est gravida, placerat condimentum
+nibh. Aliquam malesuada blandit ipsum, in imperdiet arcu sagittis ut.
+Fusce ex neque, viverra sit amet pellentesque vel, rutrum vel elit.
+Etiam mi nisl, pulvinar vel lacus eget, fringilla ultricies nisl. Nulla
+velit turpis, viverra nec elementum quis, mollis ut augue. Integer
+vulputate, metus id cursus imperdiet, arcu nibh consequat justo, a porta
+eros massa vel nibh. Vivamus sed nibh sed nunc pellentesque pharetra.
+Etiam nec mi vel felis imperdiet interdum. Curabitur tristique dapibus
+risus, eu tincidunt dui dapibus in. Donec tempor varius elit ut
+vestibulum. Mauris metus libero, sollicitudin id nisi ut, cursus
+tincidunt turpis. Aenean vitae placerat diam.
+
+    \hypertarget{matrices}{%
+\section{Matrices}\label{matrices}}
+
+\hypertarget{ejemplos-de-fuxedsica}{%
+\subsection{Ejemplos de física}\label{ejemplos-de-fuxedsica}}
+
+En esta subsección se discutirán algunos ejemplos elementales de física
+de pregrado, que no involucran cálculos pesados, pero sí involucran los
+mismos conceptos.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Rotaciones en dos dimensiones\\
+  Considere un sistema coordenado de dos dimenciones. Un punto
+  \(r = (x \ y)^T\) puede ser rotado en contra de las manecillas del
+  reloj a través de un ángulo \(\theta\) en el origen, produciendo un
+  nuevo punto \(r' = (x' \ y')^T\). Las coordenadas de los dos puntos
+  están relacionadas como sigue:
+\end{enumerate}
+
+\[
+\begin{pmatrix}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta
+\end{pmatrix}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix} 
+=
+\begin{pmatrix}
+x' \\ y'
+\end{pmatrix}
+\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\hspace{4pt}}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello World!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Hello World!
+3
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
